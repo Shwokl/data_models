@@ -10,13 +10,13 @@ import 'user.dart';
 /// database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(128) NOT NULL,
-/// `description` VARCHAR(512) DEFAULT NULL,
-/// `image` VARCHAR(256) DEFAULT NULL,
-/// `creator_id` INTEGER NOT NULL,
-/// `is_public` BOOLEAN NOT NULL DEFAULT FALSE,
-/// `default_access_level_id` INTEGER NOT NULL DEFAULT 3
+/// `workout_plan_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `workout_plan_name` VARCHAR(128) NOT NULL,
+/// `workout_plan_description` VARCHAR(512) DEFAULT NULL,
+/// `workout_plan_image` VARCHAR(256) DEFAULT NULL,
+/// `workout_plan_creator_id` INTEGER NOT NULL,
+/// `workout_plan_is_public` BOOLEAN NOT NULL DEFAULT FALSE,
+/// `workout_plan_default_access_level_id` INTEGER NOT NULL DEFAULT 3
 /// ```
 class WorkoutPlan {
   int id;

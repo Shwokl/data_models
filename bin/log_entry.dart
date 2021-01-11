@@ -10,13 +10,13 @@ import 'workout_log.dart';
 /// the database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `workout_log_id` INTEGER NOT NULL,
-/// `exercise_name` VARCHAR(128) NOT NULL,
-/// `exercise_category_id` INTEGER NOT NULL,
-/// `set_number` INTEGER NOT NULL,
-/// `data_1` INTEGER NOT NULL,
-/// `data_2` INTEGER DEFAULT 0
+/// `log_entry_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `log_entry_workout_log_id` INTEGER NOT NULL,
+/// `log_entry_exercise_name` VARCHAR(128) NOT NULL,
+/// `log_entry_exercise_category_id` INTEGER NOT NULL,
+/// `log_entry_set_number` INTEGER NOT NULL,
+/// `log_entry_data_1` INTEGER NOT NULL,
+/// `log_entry_data_2` INTEGER DEFAULT 0
 /// ```
 class LogEntry {
   int id;

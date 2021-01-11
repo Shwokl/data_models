@@ -5,9 +5,9 @@ import 'package:meta/meta.dart' show required;
 /// Encapsulates all the data associated to a role, as described in the database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(32) UNIQUE NOT NULL,
-/// `is_locked` BOOLEAN NOT NULL DEFAULT FALSE
+/// `role_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `role_name` VARCHAR(32) UNIQUE NOT NULL,
+/// `role_is_locked` BOOLEAN NOT NULL DEFAULT FALSE
 /// ```
 class Role {
   int id;

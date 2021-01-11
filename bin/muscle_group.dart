@@ -6,9 +6,9 @@ import 'package:meta/meta.dart' show required;
 /// database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(32) UNIQUE NOT NULL,
-/// `is_locked` BOOLEAN NOT NULL DEFAULT FALSE
+/// `muscle_group_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `muscle_group_name` VARCHAR(32) UNIQUE NOT NULL,
+/// `muscle_group_is_locked` BOOLEAN NOT NULL DEFAULT FALSE
 /// ```
 class MuscleGroup {
   int id;

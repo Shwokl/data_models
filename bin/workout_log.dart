@@ -9,12 +9,12 @@ import 'user.dart';
 /// database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `user_id` INTEGER,
-/// `name` VARCHAR(128) NOT NULL,
-/// `date` DATE NOT NULL DEFAULT NOW(),
-/// `duration` INTEGER NOT NULL,
-/// `notes` VARCHAR(512) DEFAULT NULL
+/// `workout_log_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `workout_log_user_id` INTEGER,
+/// `workout_log_name` VARCHAR(128) NOT NULL,
+/// `workout_log_date` DATE NOT NULL DEFAULT NOW(),
+/// `workout_log_duration` INTEGER NOT NULL,
+/// `workout_log_notes` VARCHAR(512) DEFAULT NULL
 /// ```
 class WorkoutLog {
   int id;

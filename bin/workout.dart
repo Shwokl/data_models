@@ -9,9 +9,9 @@ import 'workout_plan.dart';
 /// database
 ///
 /// ```sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(128) NOT NULL,
-/// `workout_plan_id` INTEGER NOT NULL
+/// `workout_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `workout_name` VARCHAR(128) NOT NULL,
+/// `workout_workout_plan_id` INTEGER NOT NULL
 /// ```
 class Workout {
   int id;

@@ -9,16 +9,16 @@ import 'workout_plan.dart';
 /// Encapsulates all the data associated to a user, as described in the database
 ///
 /// ``` SQL
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(128) DEFAULT NULL,
-/// `username` VARCHAR(64) NOT NULL,
-/// `password` VARCHAR(128) NOT NULL,
-/// `spice` VARCHAR(128) NOT NULL,
-/// `email` VARCHAR(128) UNIQUE NOT NULL,
-/// `role_id` INTEGER,
-/// `avatar` VARCHAR(256) DEFAULT NULL,
-/// `is_active` BOOLEAN DEFAULT TRUE,
-/// `active_workout_plan_id` INTEGER DEFAULT NULL
+/// `user_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `user_name` VARCHAR(128) DEFAULT NULL,
+/// `user_username` VARCHAR(64) NOT NULL,
+/// `user_password` VARCHAR(128) NOT NULL,
+/// `user_spice` VARCHAR(128) NOT NULL,
+/// `user_email` VARCHAR(128) UNIQUE NOT NULL,
+/// `user_role_id` INTEGER,
+/// `user_avatar` VARCHAR(256) DEFAULT NULL,
+/// `user_is_active` BOOLEAN DEFAULT TRUE,
+/// `user_workout_plan_id` INTEGER DEFAULT NULL
 /// ```
 class User {
   int id;
@@ -69,7 +69,7 @@ class User {
       'user_spice': spice,
       'user_email': email,
       'user_avatar': avatar,
-      'user_isActive': isActive,
+      'user_is_active': isActive,
     };
     user.addAll(role.toMap());
     user.addAll(activePlan.toMap());

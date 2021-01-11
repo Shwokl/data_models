@@ -9,13 +9,13 @@ import 'muscle_group.dart';
 /// Encapsulates all the data associated to a role, as described in the database
 ///
 /// ``` sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(128) UNIQUE NOT NULL,
-/// `description` VARCHAR(512) DEFAULT NULL,
-/// `notes` VARCHAR(1024) DEFAULT NULL,
-/// `icon` VARCHAR(256) DEFAULT NULL,
-/// `muscle_group_id` INTEGER DEFAULT 1,
-/// `category_id` INTEGER
+/// `exercise_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `exercise_name` VARCHAR(128) UNIQUE NOT NULL,
+/// `exercise_description` VARCHAR(512) DEFAULT NULL,
+/// `exercise_notes` VARCHAR(1024) DEFAULT NULL,
+/// `exercise_icon` VARCHAR(256) DEFAULT NULL,
+/// `exercise_muscle_group_id` INTEGER DEFAULT 1,
+/// `exercise_category_id` INTEGER
 /// ```
 class Exercise {
   int id;

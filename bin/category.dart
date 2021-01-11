@@ -6,8 +6,8 @@ import 'package:meta/meta.dart' show required;
 /// database
 ///
 /// ```sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(64) UNIQUE NOT NULL
+/// `category_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `category_name` VARCHAR(64) UNIQUE NOT NULL
 /// ```
 class Category {
   int id;

@@ -6,8 +6,8 @@ import 'package:meta/meta.dart' show required;
 /// in the database
 ///
 /// ```sql
-/// `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
-/// `name` VARCHAR(64) UNIQUE NOT NULL
+/// `access_level_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+/// `access_level_name` VARCHAR(64) UNIQUE NOT NULL
 /// ```
 class AccessLevel {
   int id;
