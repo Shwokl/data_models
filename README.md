@@ -1,4 +1,3 @@
-A simple command-line application.
+# Shwokl / Data Models
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+A centralized location where all the data models for the Shwokl application are implemented.
