@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
@@ -21,11 +22,10 @@ class Category extends Jsonable {
     @required this.name,
   });
 
-  @override
-  Category fromMap(final Map<String, dynamic> map) {
+  Category.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Category.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['category_id']);
     name = map['category_name'];
-    return this;
   }
 
   @override

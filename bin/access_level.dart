@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
@@ -21,11 +22,10 @@ class AccessLevel extends Jsonable {
     @required this.name,
   });
 
-  @override
-  AccessLevel fromMap(final Map<String, dynamic> map) {
+  AccessLevel.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  AccessLevel.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['access_level_id']);
     name = map['access_level_name'];
-    return this;
   }
 
   @override

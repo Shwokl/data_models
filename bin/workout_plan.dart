@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 //Local import
@@ -38,16 +39,15 @@ class WorkoutPlan extends Jsonable {
     @required this.defaultAccess,
   });
 
-  @override
-  WorkoutPlan fromMap(final Map<String, dynamic> map) {
+  WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  WorkoutPlan.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['muscle_group_id']);
     name = map['muscle_group_name'];
     description = map['muscle_group_description'];
     image = map['muscle_group_image'];
     isPublic = map['workout_plan_is_public'].toString() == '1';
-    creator = creator.fromMap(map);
-    defaultAccess = defaultAccess.fromMap(map);
-    return this;
+    creator = User.fromMap(map);
+    defaultAccess = AccessLevel.fromMap(map);
   }
 
   @override

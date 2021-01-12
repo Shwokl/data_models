@@ -1,6 +1,8 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
+// Local imports
 import 'jsonable.dart';
 
 /// Encapsulates all the data associated to a muscle group, as described in the
@@ -23,12 +25,11 @@ class MuscleGroup extends Jsonable {
     @required this.isLocked,
   });
 
-  @override
-  MuscleGroup fromMap(final Map<String, dynamic> map) {
+  MuscleGroup.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  MuscleGroup.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['muscle_group_id']);
     name = map['muscle_group_name'];
     isLocked = map['muscle_group_is_locked'].toString() == '1';
-    return this;
   }
 
   @override

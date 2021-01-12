@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
@@ -37,16 +38,15 @@ class Exercise extends Jsonable {
     @required this.category,
   });
 
-  @override
-  Exercise fromMap(final Map<String, dynamic> map) {
+  Exercise.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Exercise.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['exercise_id']);
     name = map['exercise_name'];
     description = map['exercise_description'];
     notes = map['exercise_notes'];
     icon = map['exercise_icon'];
-    muscleGroup = muscleGroup.fromMap(map);
-    category = category.fromMap(map);
-    return this;
+    muscleGroup = MuscleGroup.fromMap(map);
+    category = Category.fromMap(map);
   }
 
   @override

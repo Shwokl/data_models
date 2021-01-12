@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
@@ -23,12 +24,11 @@ class Role extends Jsonable {
     @required this.isLocked,
   });
 
-  @override
-  Role fromMap(final Map<String, dynamic> map) {
+  Role.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Role.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['role_id']);
     name = map['role_name'];
     isLocked = map['role_is_locked'].toString() == '1';
-    return this;
   }
 
   @override

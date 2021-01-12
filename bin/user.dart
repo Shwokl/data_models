@@ -1,4 +1,5 @@
-// External Imports
+// External imports
+import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
@@ -45,19 +46,18 @@ class User extends Jsonable {
     @required this.activePlan,
   });
 
-  @override
-  User fromMap(final Map<String, dynamic> map) {
+  User.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  User.fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['user_id']);
     name = map['user_name'];
     username = map['user_username'];
     password = map['user_password'];
     spice = map['user_spice'];
     email = map['user_email'];
-    role = role.fromMap(map);
+    role = Role.fromMap(map);
     avatar = map['user_avatar'];
     isActive = map['user_isActive'];
-    activePlan = activePlan.fromMap(map);
-    return this;
+    activePlan = WorkoutPlan.fromMap(map);
   }
 
   @override
