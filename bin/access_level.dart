@@ -1,6 +1,8 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
+
+// Local imports
+import 'jsonable.dart';
 
 /// Encapsulates all the data associated to a workout access level, as described
 /// in the database
@@ -9,7 +11,7 @@ import 'package:meta/meta.dart' show required;
 /// `access_level_id` INTEGER PRIMARY KEY AUTO_INCREMENT,
 /// `access_level_name` VARCHAR(64) UNIQUE NOT NULL
 /// ```
-class AccessLevel {
+class AccessLevel extends Jsonable {
   int id;
   String name;
 
@@ -19,13 +21,14 @@ class AccessLevel {
     @required this.name,
   });
 
-  AccessLevel.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  AccessLevel.fromMap(final Map<String, dynamic> map) {
+  @override
+  AccessLevel fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['access_level_id']);
     name = map['access_level_name'];
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     return {
       'access_level_id': id,

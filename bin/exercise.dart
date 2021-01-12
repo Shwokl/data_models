@@ -1,9 +1,9 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
 import 'category.dart';
+import 'jsonable.dart';
 import 'muscle_group.dart';
 
 /// Encapsulates all the data associated to a role, as described in the database
@@ -17,7 +17,7 @@ import 'muscle_group.dart';
 /// `exercise_muscle_group_id` INTEGER DEFAULT 1,
 /// `exercise_category_id` INTEGER
 /// ```
-class Exercise {
+class Exercise extends Jsonable {
   int id;
   String name;
   String description;
@@ -37,18 +37,19 @@ class Exercise {
     @required this.category,
   });
 
-  Exercise.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  Exercise.fromMap(final Map<String, dynamic> map) {
+  @override
+  Exercise fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['exercise_id']);
     name = map['exercise_name'];
     description = map['exercise_description'];
     notes = map['exercise_notes'];
     icon = map['exercise_icon'];
-    muscleGroup = MuscleGroup.fromMap(map);
-    category = Category.fromMap(map);
+    muscleGroup = muscleGroup.fromMap(map);
+    category = category.fromMap(map);
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> exercise = {
       'exercise_id': id,

@@ -1,8 +1,8 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import 'jsonable.dart';
 import 'role.dart';
 import 'workout_plan.dart';
 
@@ -20,7 +20,7 @@ import 'workout_plan.dart';
 /// `user_is_active` BOOLEAN DEFAULT TRUE,
 /// `user_workout_plan_id` INTEGER DEFAULT NULL
 /// ```
-class User {
+class User extends Jsonable {
   int id;
   String name;
   String username;
@@ -45,21 +45,22 @@ class User {
     @required this.activePlan,
   });
 
-  User.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  User.fromMap(final Map<String, dynamic> map) {
+  @override
+  User fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['user_id']);
     name = map['user_name'];
     username = map['user_username'];
     password = map['user_password'];
     spice = map['user_spice'];
     email = map['user_email'];
-    role = Role.fromMap(map);
+    role = role.fromMap(map);
     avatar = map['user_avatar'];
     isActive = map['user_isActive'];
-    activePlan = WorkoutPlan.fromMap(map);
+    activePlan = activePlan.fromMap(map);
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> user = {
       'user_id': id,

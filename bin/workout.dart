@@ -1,8 +1,8 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import 'jsonable.dart';
 import 'workout_plan.dart';
 
 /// Encapsulates all the data associated to a workout, as described in the
@@ -13,7 +13,7 @@ import 'workout_plan.dart';
 /// `workout_name` VARCHAR(128) NOT NULL,
 /// `workout_workout_plan_id` INTEGER NOT NULL
 /// ```
-class Workout {
+class Workout extends Jsonable {
   int id;
   String name;
   WorkoutPlan plan;
@@ -25,14 +25,15 @@ class Workout {
     @required this.plan,
   });
 
-  Workout.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  Workout.fromMap(final Map<String, dynamic> map) {
+  @override
+  Workout fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['workout_id']);
     name = map['workout_name'];
-    plan = WorkoutPlan.fromMap(map);
+    plan = plan.fromMap(map);
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> workout = {
       'workout_id': id,

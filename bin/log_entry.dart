@@ -1,9 +1,9 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local Imports
 import 'category.dart';
+import 'jsonable.dart';
 import 'workout_log.dart';
 
 /// Encapsulates all the data associated to a workout log entry, as described in
@@ -18,7 +18,7 @@ import 'workout_log.dart';
 /// `log_entry_data_1` INTEGER NOT NULL,
 /// `log_entry_data_2` INTEGER DEFAULT 0
 /// ```
-class LogEntry {
+class LogEntry extends Jsonable {
   int id;
   WorkoutLog log;
   String exerciseName;
@@ -37,18 +37,19 @@ class LogEntry {
     @required this.data2,
   });
 
-  LogEntry.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  LogEntry.fromMap(final Map<String, dynamic> map) {
+  @override
+  LogEntry fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['log_entry_id']);
-    log = WorkoutLog.fromMap(map);
+    log = log.fromMap(map);
     exerciseName = map['log_entry_exercise_name'];
-    category = Category.fromMap(map);
+    category = category.fromMap(map);
     setNumber = int.parse(map['log_entry_set_number']);
     data1 = int.parse(map['log_entry_data_1']);
     data2 = int.parse(map['log_entry_data_2']);
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> entry = {
       'log_entry_id': id,

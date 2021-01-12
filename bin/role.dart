@@ -1,6 +1,8 @@
 // External Imports
-import 'dart:convert' show jsonEncode, jsonDecode;
 import 'package:meta/meta.dart' show required;
+
+// Local imports
+import 'jsonable.dart';
 
 /// Encapsulates all the data associated to a role, as described in the database
 ///
@@ -9,7 +11,7 @@ import 'package:meta/meta.dart' show required;
 /// `role_name` VARCHAR(32) UNIQUE NOT NULL,
 /// `role_is_locked` BOOLEAN NOT NULL DEFAULT FALSE
 /// ```
-class Role {
+class Role extends Jsonable {
   int id;
   String name;
   bool isLocked;
@@ -21,14 +23,15 @@ class Role {
     @required this.isLocked,
   });
 
-  Role.fromJson(final String json) : this.fromMap(jsonDecode(json));
-  Role.fromMap(final Map<String, dynamic> map) {
+  @override
+  Role fromMap(final Map<String, dynamic> map) {
     id = int.parse(map['role_id']);
     name = map['role_name'];
     isLocked = map['role_is_locked'].toString() == '1';
+    return this;
   }
 
-  String toJson() => jsonEncode(toMap());
+  @override
   Map<String, dynamic> toMap() {
     return {
       'role_id': id,
