@@ -48,7 +48,11 @@ class User extends Jsonable {
 
   User.fromJson(final String json) : this.fromMap(jsonDecode(json));
   User.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['user_id']);
+    if (map.containsKey('user_id')) {
+      id = int.parse(map['user_id']);
+    } else {
+      id = 0;
+    }
     name = map['user_name'];
     username = map['user_username'];
     password = map['user_password'];

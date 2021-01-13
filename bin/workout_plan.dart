@@ -41,7 +41,6 @@ class WorkoutPlan extends Jsonable {
 
   WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutPlan.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['muscle_group_id']);
     name = map['muscle_group_name'];
     description = map['muscle_group_description'];
     image = map['muscle_group_image'];

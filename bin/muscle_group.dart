@@ -27,7 +27,11 @@ class MuscleGroup extends Jsonable {
 
   MuscleGroup.fromJson(final String json) : this.fromMap(jsonDecode(json));
   MuscleGroup.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['muscle_group_id']);
+    if (map.containsKey('muscle_group_id')) {
+      id = int.parse(map['muscle_group_id']);
+    } else {
+      id = 0;
+    }
     name = map['muscle_group_name'];
     isLocked = map['muscle_group_is_locked'].toString() == '1';
   }

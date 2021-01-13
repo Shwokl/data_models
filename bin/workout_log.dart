@@ -36,7 +36,11 @@ class WorkoutLog extends Jsonable {
 
   WorkoutLog.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutLog.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['workout_log_id']);
+    if (map.containsKey('workout_log_id')) {
+      id = int.parse(map['workout_log_id']);
+    } else {
+      id = 0;
+    }
     duration = int.parse(map['workout_log_duration']);
     name = map['workout_log_name'];
     date = map['workout_log_date'];
