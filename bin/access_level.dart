@@ -24,7 +24,11 @@ class AccessLevel extends Jsonable {
 
   AccessLevel.fromJson(final String json) : this.fromMap(jsonDecode(json));
   AccessLevel.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['access_level_id']);
+    if (map.containsKey('access_level_id')) {
+      id = int.parse(map['access_level_id']);
+    } else {
+      id = 0;
+    }
     name = map['access_level_name'];
   }
 

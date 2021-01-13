@@ -40,7 +40,11 @@ class LogEntry extends Jsonable {
 
   LogEntry.fromJson(final String json) : this.fromMap(jsonDecode(json));
   LogEntry.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['log_entry_id']);
+    if (map.containsKey('log_entry_id')) {
+      id = int.parse(map['log_entry_id']);
+    } else {
+      id = 0;
+    }
     log = WorkoutLog.fromMap(map);
     exerciseName = map['log_entry_exercise_name'];
     category = Category.fromMap(map);

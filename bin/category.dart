@@ -24,7 +24,11 @@ class Category extends Jsonable {
 
   Category.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Category.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['category_id']);
+    if (map.containsKey('category_id')) {
+      id = int.parse(map['category_id']);
+    } else {
+      id = 0;
+    }
     name = map['category_name'];
   }
 

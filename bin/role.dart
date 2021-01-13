@@ -26,7 +26,11 @@ class Role extends Jsonable {
 
   Role.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Role.fromMap(final Map<String, dynamic> map) {
-    id = int.parse(map['role_id']);
+    if (map.containsKey('role_id')) {
+      id = int.parse(map['role_id']);
+    } else {
+      id = 0;
+    }
     name = map['role_name'];
     isLocked = map['role_is_locked'].toString() == '1';
   }
