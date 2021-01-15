@@ -6,6 +6,7 @@ import 'package:meta/meta.dart' show required;
 import 'category.dart';
 import 'jsonable.dart';
 import 'workout_log.dart';
+import '../../../helpers/query_helper/components/log_entries/table.dart';
 
 /// Encapsulates all the data associated to a workout log entry, as described in
 /// the database
@@ -40,27 +41,27 @@ class LogEntry extends Jsonable {
 
   LogEntry.fromJson(final String json) : this.fromMap(jsonDecode(json));
   LogEntry.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('log_entry_id')) {
-      id = int.parse(map['log_entry_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
     log = WorkoutLog.fromMap(map);
-    exerciseName = map['log_entry_exercise_name'];
+    exerciseName = map[Table.exerciseName];
     category = Category.fromMap(map);
-    setNumber = int.parse(map['log_entry_set_number']);
-    data1 = int.parse(map['log_entry_data_1']);
-    data2 = int.parse(map['log_entry_data_2']);
+    setNumber = int.parse(map[Table.setNr]);
+    data1 = int.parse(map[Table.data1]);
+    data2 = int.parse(map[Table.data2]);
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> entry = {
-      'log_entry_id': id,
-      'log_entry_exercise_name': exerciseName,
-      'log_entry_set_number': setNumber,
-      'log_entry_data_1': data1,
-      'log_entry_data_2': data2,
+      Table.id: id,
+      Table.exerciseName: exerciseName,
+      Table.setNr: setNumber,
+      Table.data1: data1,
+      Table.data2: data2,
     };
     entry..addAll(log.toMap())..addAll(category.toMap());
     return entry;

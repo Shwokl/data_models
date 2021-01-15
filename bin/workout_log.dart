@@ -5,6 +5,7 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import 'jsonable.dart';
 import 'user.dart';
+import '../../../helpers/query_helper/components/workout_logs/table.dart';
 
 /// Encapsulates all the data associated to a workout log, as described in the
 /// database
@@ -36,26 +37,26 @@ class WorkoutLog extends Jsonable {
 
   WorkoutLog.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutLog.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('workout_log_id')) {
-      id = int.parse(map['workout_log_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
-    duration = int.parse(map['workout_log_duration']);
-    name = map['workout_log_name'];
-    date = map['workout_log_date'];
-    notes = map['workout_log_notes'];
+    duration = int.parse(map[Table.duration]);
+    name = map[Table.name];
+    date = map[Table.date];
+    notes = map[Table.notes];
     user = User.fromMap(map);
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> log = {
-      'workout_log_id': id,
-      'workout_log_duration': duration,
-      'workout_log_name': name,
-      'workout_log_date': date,
-      'workout_log_notes': notes,
+      Table.id: id,
+      Table.duration: duration,
+      Table.name: name,
+      Table.date: date,
+      Table.notes: notes,
     };
     log.addAll(user.toMap());
     return log;

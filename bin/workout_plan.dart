@@ -3,9 +3,9 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 //Local import
-import 'access_level.dart';
 import 'jsonable.dart';
 import 'user.dart';
+import '../../../helpers/query_helper/components/workout_plans/table.dart';
 
 /// Encapsulates all the data associated to a workout plan, as described in the
 /// database
@@ -16,8 +16,7 @@ import 'user.dart';
 /// `workout_plan_description` VARCHAR(512) DEFAULT NULL,
 /// `workout_plan_image` VARCHAR(256) DEFAULT NULL,
 /// `workout_plan_creator_id` INTEGER NOT NULL,
-/// `workout_plan_is_public` BOOLEAN NOT NULL DEFAULT FALSE,
-/// `workout_plan_default_access_level_id` INTEGER NOT NULL DEFAULT 3
+/// `workout_plan_is_public` BOOLEAN NOT NULL DEFAULT FALSE
 /// ```
 class WorkoutPlan extends Jsonable {
   int id;
@@ -26,8 +25,6 @@ class WorkoutPlan extends Jsonable {
   String image;
   User creator;
   bool isPublic;
-  AccessLevel defaultAccess;
-  // TODO: List<Workout> workouts;
 
   WorkoutPlan({
     @required this.id,
@@ -36,30 +33,27 @@ class WorkoutPlan extends Jsonable {
     @required this.image,
     @required this.creator,
     @required this.isPublic,
-    @required this.defaultAccess,
   });
 
   WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutPlan.fromMap(final Map<String, dynamic> map) {
-    name = map['muscle_group_name'];
-    description = map['muscle_group_description'];
-    image = map['muscle_group_image'];
-    isPublic = map['workout_plan_is_public'].toString() == '1';
+    name = map[Table.name];
+    description = map[Table.description];
+    image = map[Table.image];
+    isPublic = map[Table.isPublic].toString() == '1';
     creator = User.fromMap(map);
-    defaultAccess = AccessLevel.fromMap(map);
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> workout_plan = {
-      'workout_plan_id': id,
-      'workout_plan_name': name,
-      'workout_plan_description': description,
-      'workout_plan_image': image,
-      'workout_plan_is_public': isPublic,
+      Table.id: id,
+      Table.name: name,
+      Table.description: description,
+      Table.image: image,
+      Table.isPublic: isPublic,
     };
     workout_plan.addAll(creator.toMap());
-    workout_plan.addAll(defaultAccess.toMap());
     return workout_plan;
   }
 }

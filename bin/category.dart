@@ -4,6 +4,7 @@ import 'package:meta/meta.dart' show required;
 
 // Local imports
 import 'jsonable.dart';
+import '../../../helpers/query_helper/components/categories/table.dart';
 
 /// Encapsulates all the data associated to a category, as described in the
 /// database
@@ -24,19 +25,19 @@ class Category extends Jsonable {
 
   Category.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Category.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('category_id')) {
-      id = int.parse(map['category_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
-    name = map['category_name'];
+    name = map[Table.name];
   }
 
   @override
   Map<String, dynamic> toMap() {
     return {
-      'category_id': id,
-      'category_name': name,
+      Table.id: id,
+      Table.name: name,
     };
   }
 }

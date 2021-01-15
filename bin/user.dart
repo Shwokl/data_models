@@ -5,7 +5,7 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import 'jsonable.dart';
 import 'role.dart';
-import 'workout_plan.dart';
+import '../../../helpers/query_helper/components/users/table.dart';
 
 /// Encapsulates all the data associated to a user, as described in the database
 ///
@@ -19,7 +19,6 @@ import 'workout_plan.dart';
 /// `user_role_id` INTEGER,
 /// `user_avatar` VARCHAR(256) DEFAULT NULL,
 /// `user_is_active` BOOLEAN DEFAULT TRUE,
-/// `user_workout_plan_id` INTEGER DEFAULT NULL
 /// ```
 class User extends Jsonable {
   int id;
@@ -31,7 +30,6 @@ class User extends Jsonable {
   Role role;
   String avatar;
   bool isActive;
-  WorkoutPlan activePlan;
 
   User({
     @required this.id,
@@ -43,41 +41,38 @@ class User extends Jsonable {
     @required this.role,
     @required this.avatar,
     @required this.isActive,
-    @required this.activePlan,
   });
 
   User.fromJson(final String json) : this.fromMap(jsonDecode(json));
   User.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('user_id')) {
-      id = int.parse(map['user_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
-    name = map['user_name'];
-    username = map['user_username'];
-    password = map['user_password'];
-    spice = map['user_spice'];
-    email = map['user_email'];
+    name = map[Table.name];
+    username = map[Table.username];
+    password = map[Table.password];
+    spice = map[Table.spice];
+    email = map[Table.email];
     role = Role.fromMap(map);
-    avatar = map['user_avatar'];
-    isActive = map['user_isActive'];
-    activePlan = WorkoutPlan.fromMap(map);
+    avatar = map[Table.avatar];
+    isActive = map[Table.isActive];
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> user = {
-      'user_id': id,
-      'user_name': name,
-      'user_username': username,
-      'user_password': password,
-      'user_spice': spice,
-      'user_email': email,
-      'user_avatar': avatar,
-      'user_is_active': isActive,
+      Table.id: id,
+      Table.name: name,
+      Table.username: username,
+      Table.password: password,
+      Table.spice: spice,
+      Table.email: email,
+      Table.avatar: avatar,
+      Table.isActive: isActive,
     };
     user.addAll(role.toMap());
-    user.addAll(activePlan.toMap());
     return user;
   }
 }

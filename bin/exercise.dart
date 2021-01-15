@@ -5,7 +5,7 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import 'category.dart';
 import 'jsonable.dart';
-import 'muscle_group.dart';
+import '../../../helpers/query_helper/components/exercises/table.dart';
 
 /// Encapsulates all the data associated to a role, as described in the database
 ///
@@ -15,7 +15,6 @@ import 'muscle_group.dart';
 /// `exercise_description` VARCHAR(512) DEFAULT NULL,
 /// `exercise_notes` VARCHAR(1024) DEFAULT NULL,
 /// `exercise_icon` VARCHAR(256) DEFAULT NULL,
-/// `exercise_muscle_group_id` INTEGER DEFAULT 1,
 /// `exercise_category_id` INTEGER
 /// ```
 class Exercise extends Jsonable {
@@ -24,7 +23,6 @@ class Exercise extends Jsonable {
   String description;
   String notes;
   String icon;
-  MuscleGroup muscleGroup;
   Category category;
 
   /// Constructor from 'raw data'
@@ -34,35 +32,32 @@ class Exercise extends Jsonable {
     @required this.description,
     @required this.notes,
     @required this.icon,
-    @required this.muscleGroup,
     @required this.category,
   });
 
   Exercise.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Exercise.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('exercise_id')) {
-      id = int.parse(map['exercise_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
-    name = map['exercise_name'];
-    description = map['exercise_description'];
-    notes = map['exercise_notes'];
-    icon = map['exercise_icon'];
-    muscleGroup = MuscleGroup.fromMap(map);
+    name = map[Table.name];
+    description = map[Table.description];
+    notes = map[Table.notes];
+    icon = map[Table.icon];
     category = Category.fromMap(map);
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> exercise = {
-      'exercise_id': id,
-      'exercise_name': name,
-      'exercise_description': description,
-      'exercise_notes': notes,
-      'exercise_icon': icon,
+      Table.id: id,
+      Table.name: name,
+      Table.description: description,
+      Table.notes: notes,
+      Table.icon: icon,
     };
-    exercise.addAll(muscleGroup.toMap());
     exercise.addAll(category.toMap());
     return exercise;
   }

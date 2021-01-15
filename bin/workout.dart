@@ -5,6 +5,7 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import 'jsonable.dart';
 import 'workout_plan.dart';
+import '../../../helpers/query_helper/components/workouts/table.dart';
 
 /// Encapsulates all the data associated to a workout, as described in the
 /// database
@@ -17,31 +18,35 @@ import 'workout_plan.dart';
 class Workout extends Jsonable {
   int id;
   String name;
+  String image;
   WorkoutPlan plan;
 
   /// Constructor from 'raw data'
   Workout({
     @required this.id,
     @required this.name,
+    @required this.image,
     @required this.plan,
   });
 
   Workout.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Workout.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey('workout_id')) {
-      id = int.parse(map['workout_id']);
+    if (map.containsKey(Table.id)) {
+      id = int.parse(map[Table.id]);
     } else {
       id = 0;
     }
-    name = map['workout_name'];
+    name = map[Table.name];
+    image = map[Table.image];
     plan = WorkoutPlan.fromMap(map);
   }
 
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> workout = {
-      'workout_id': id,
-      'workout_name': name,
+      Table.id: id,
+      Table.name: name,
+      Table.image: image,
     };
     workout.addAll(plan.toMap());
     return workout;
