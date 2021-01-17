@@ -24,7 +24,7 @@ class WorkoutPlan extends Jsonable {
   String description;
   String image;
   User creator;
-  bool isPublic;
+  int isPublic;
 
   WorkoutPlan({
     @required this.id,
@@ -32,7 +32,7 @@ class WorkoutPlan extends Jsonable {
     this.description = '',
     this.image = Table.defaultImage,
     @required this.creator,
-    this.isPublic = false,
+    this.isPublic = 0,
   });
 
   WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
@@ -41,8 +41,11 @@ class WorkoutPlan extends Jsonable {
     name = map[Table.name];
     description = Jsonable.tryExtract(map, Table.description, '');
     image = Jsonable.tryExtract(map, Table.image, Table.defaultImage);
-    isPublic = Jsonable.tryExtract(map, Table.isPublic, '0') == '1';
+    isPublic = int.parse(Jsonable.tryExtract(map, Table.isPublic, '0'));
     creator = User.fromMap(map);
+    if (creator.id == 0) {
+      creator.id = int.parse(Jsonable.tryExtract(map, Table.creator, '0'));
+    }
   }
 
   @override
@@ -65,6 +68,7 @@ class WorkoutPlan extends Jsonable {
       Table.description: description,
       Table.image: image,
       Table.isPublic: isPublic,
+      Table.creator: creator.id,
     };
     workout_plan.addAll(creator.toMap());
     return workout_plan;

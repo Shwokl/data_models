@@ -29,7 +29,7 @@ class User extends Jsonable {
   String email;
   Role role;
   String avatar;
-  bool isActive;
+  int isActive;
 
   User({
     @required this.id,
@@ -40,7 +40,7 @@ class User extends Jsonable {
     this.email = '',
     @required this.role,
     this.avatar = Table.defaultAvatar,
-    this.isActive = true,
+    this.isActive = 1,
   });
 
   User.fromJson(final String json) : this.fromMap(jsonDecode(json));
@@ -53,7 +53,7 @@ class User extends Jsonable {
     email = Jsonable.tryExtract(map, Table.email, '');
     role = Role.fromMap(map);
     avatar = Jsonable.tryExtract(map, Table.avatar, Table.defaultAvatar);
-    isActive = Jsonable.tryExtract(map, Table.isActive, 'true') == '1';
+    isActive = int.parse(Jsonable.tryExtract(map, Table.isActive, '1'));
   }
 
   @override
