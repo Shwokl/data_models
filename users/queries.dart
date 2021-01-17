@@ -20,6 +20,7 @@ class Queries {
         ${u.Table.email} = ?,
         ${u.Table.role} = ?,
         ${u.Table.avatar} = ?,
+        ${u.Table.isActive} = ?
     WHERE U.${u.Table.id} = ?;
   ''';
 
@@ -27,18 +28,6 @@ class Queries {
     UPDATE ${u.Table.tableName}
     SET ${u.Table.password} = ?,
         ${u.Table.spice} = ?
-    WHERE U.${u.Table.id} = ?;
-  ''';
-
-  final String deactivateUser = '''
-    UPDATE ${u.Table.tableName}
-    SET ${u.Table.isActive} = 0
-    WHERE U.${u.Table.id} = ?;
-  ''';
-
-  final String reactivateUser = '''
-    UPDATE ${u.Table.tableName}
-    SET ${u.Table.isActive} = 1
     WHERE U.${u.Table.id} = ?;
   ''';
 
