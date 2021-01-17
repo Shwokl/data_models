@@ -32,7 +32,13 @@ abstract class Jsonable {
 
   static String tryExtract(final Map<String, dynamic> map, final String key,
       final String defaultValue) {
-    return map.containsKey(key) ? map['key'] : defaultValue;
+    if (map.containsKey(key)) {
+      if (map[key] == null) {
+        return defaultValue;
+      }
+      return map[key];
+    }
+    return defaultValue;
   }
 
   String toJson() => jsonEncode(toMap());
