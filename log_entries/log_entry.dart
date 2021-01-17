@@ -3,10 +3,10 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
-import 'category.dart';
-import 'jsonable.dart';
-import 'workout_log.dart';
-import '../../../helpers/query_helper/components/log_entries/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
+import '../categories/category.dart';
+import '../workout_logs/workout_log.dart';
 
 /// Encapsulates all the data associated to a workout log entry, as described in
 /// the database
@@ -36,22 +36,39 @@ class LogEntry extends Jsonable {
     @required this.category,
     @required this.setNumber,
     @required this.data1,
-    @required this.data2,
+    this.data2 = 0,
   });
 
   LogEntry.fromJson(final String json) : this.fromMap(jsonDecode(json));
   LogEntry.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     log = WorkoutLog.fromMap(map);
     exerciseName = map[Table.exerciseName];
     category = Category.fromMap(map);
     setNumber = int.parse(map[Table.setNr]);
     data1 = int.parse(map[Table.data1]);
     data2 = int.parse(map[Table.data2]);
+  }
+
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id != 0;
+  @override
+  bool hasDataForInsert() {
+    return this != null &&
+        log != null &&
+        log.id != null &&
+        log.id != 0 &&
+        exerciseName != null &&
+        exerciseName.isNotEmpty &&
+        category != null &&
+        category.id != null &&
+        category.id != 0 &&
+        setNumber != null &&
+        setNumber > 0 &&
+        data1 != null &&
+        data1 > 0 &&
+        data2 != null &&
+        data2 > 0;
   }
 
   @override

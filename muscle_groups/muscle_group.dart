@@ -3,8 +3,8 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
-import 'jsonable.dart';
-import '../../../helpers/query_helper/components/muscle_groups/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
 
 /// Encapsulates all the data associated to a muscle group, as described in the
 /// database
@@ -25,13 +25,14 @@ class MuscleGroup extends Jsonable {
 
   MuscleGroup.fromJson(final String json) : this.fromMap(jsonDecode(json));
   MuscleGroup.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     name = map[Table.name];
   }
+
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  @override
+  bool hasDataForInsert() => this != null && name != null && name.isNotEmpty;
 
   @override
   Map<String, dynamic> toMap() {

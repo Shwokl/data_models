@@ -3,9 +3,9 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
-import 'jsonable.dart';
-import 'role.dart';
-import '../../../helpers/query_helper/components/users/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
+import '../roles/role.dart';
 
 /// Encapsulates all the data associated to a user, as described in the database
 ///
@@ -33,31 +33,45 @@ class User extends Jsonable {
 
   User({
     @required this.id,
-    @required this.name,
+    this.name = '',
     @required this.username,
     @required this.password,
     @required this.spice,
-    @required this.email,
+    this.email = '',
     @required this.role,
-    @required this.avatar,
-    @required this.isActive,
+    this.avatar = Table.defaultAvatar,
+    this.isActive = true,
   });
 
   User.fromJson(final String json) : this.fromMap(jsonDecode(json));
   User.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
-    name = map[Table.name];
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
+    name = Jsonable.tryExtract(map, Table.name, '');
     username = map[Table.username];
     password = map[Table.password];
     spice = map[Table.spice];
-    email = map[Table.email];
+    email = Jsonable.tryExtract(map, Table.email, '');
     role = Role.fromMap(map);
-    avatar = map[Table.avatar];
-    isActive = map[Table.isActive];
+    avatar = Jsonable.tryExtract(map, Table.avatar, Table.defaultAvatar);
+    isActive = Jsonable.tryExtract(map, Table.isActive, 'true') == '1';
+  }
+
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  @override
+  bool hasDataForInsert() {
+    return this != null &&
+        name != null &&
+        name.isNotEmpty &&
+        username != null &&
+        username.isNotEmpty &&
+        password != null &&
+        password.isNotEmpty &&
+        spice != null &&
+        spice.isNotEmpty &&
+        role != null &&
+        role.id != null &&
+        role.id > 0;
   }
 
   @override

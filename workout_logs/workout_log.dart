@@ -3,9 +3,9 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
-import 'jsonable.dart';
-import 'user.dart';
-import '../../../helpers/query_helper/components/workout_logs/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
+import '../users/user.dart';
 
 /// Encapsulates all the data associated to a workout log, as described in the
 /// database
@@ -31,22 +31,32 @@ class WorkoutLog extends Jsonable {
     @required this.user,
     @required this.name,
     @required this.date,
-    @required this.duration,
-    @required this.notes,
+    this.duration,
+    this.notes,
   });
 
   WorkoutLog.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutLog.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
-    duration = int.parse(map[Table.duration]);
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
+    duration = int.parse(Jsonable.tryExtract(map, Table.duration, '0'));
     name = map[Table.name];
     date = map[Table.date];
-    notes = map[Table.notes];
+    notes = Jsonable.tryExtract(map, Table.notes, '');
     user = User.fromMap(map);
+  }
+
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  @override
+  bool hasDataForInsert() {
+    return this != null &&
+        name != null &&
+        name.isNotEmpty &&
+        user != null &&
+        user.id != null &&
+        user.id > 0 &&
+        date != null &&
+        date.isNotEmpty;
   }
 
   @override

@@ -3,9 +3,9 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 //Local import
-import 'jsonable.dart';
-import 'user.dart';
-import '../../../helpers/query_helper/components/workout_plans/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
+import '../users/user.dart';
 
 /// Encapsulates all the data associated to a workout plan, as described in the
 /// database
@@ -29,24 +29,32 @@ class WorkoutPlan extends Jsonable {
   WorkoutPlan({
     @required this.id,
     @required this.name,
-    @required this.description,
-    @required this.image,
+    this.description = '',
+    this.image = Table.defaultImage,
     @required this.creator,
-    @required this.isPublic,
+    this.isPublic = false,
   });
 
   WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
   WorkoutPlan.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     name = map[Table.name];
-    description = map[Table.description];
-    image = map[Table.image];
-    isPublic = map[Table.isPublic].toString() == '1';
+    description = Jsonable.tryExtract(map, Table.description, '');
+    image = Jsonable.tryExtract(map, Table.image, Table.defaultImage);
+    isPublic = Jsonable.tryExtract(map, Table.isPublic, '0') == '1';
     creator = User.fromMap(map);
+  }
+
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  @override
+  bool hasDataForInsert() {
+    return this != null &&
+        name != null &&
+        name.isNotEmpty &&
+        creator != null &&
+        creator.id != null &&
+        creator.id > 0;
   }
 
   @override

@@ -2,21 +2,19 @@
 import 'dart:convert' show jsonEncode;
 
 // Local imports
-import 'access_level.dart';
-import 'category.dart';
-import 'exercise.dart';
-import 'log_entry.dart';
-import 'muscle_group.dart';
-import 'role.dart';
-import 'user.dart';
-import 'workout.dart';
-import 'workout_log.dart';
-import 'workout_plan.dart';
+import 'categories/category.dart';
+import 'exercises/exercise.dart';
+import 'log_entries/log_entry.dart';
+import 'muscle_groups/muscle_group.dart';
+import 'roles/role.dart';
+import 'users/user.dart';
+import 'workouts/workout.dart';
+import 'workout_logs/workout_log.dart';
+import 'workout_plans/workout_plan.dart';
 
 abstract class Jsonable {
   /// Add factory functions for every Type and every constructor you want to make available to `make`
   static final factories = <Type, Function>{
-    AccessLevel: (String json) => AccessLevel.fromJson(json),
     Category: (String json) => Category.fromJson(json),
     Exercise: (String json) => Exercise.fromJson(json),
     LogEntry: (String json) => LogEntry.fromJson(json),
@@ -28,9 +26,17 @@ abstract class Jsonable {
     Workout: (String json) => Workout.fromJson(json),
   };
 
-  static T fromJson<T extends Jsonable>(final String json) =>
-      factories[T](json);
+  static T fromJson<T extends Jsonable>(final String json) {
+    return factories[T](json);
+  }
+
+  static String tryExtract(final Map<String, dynamic> map, final String key,
+      final String defaultValue) {
+    return map.containsKey(key) ? map['key'] : defaultValue;
+  }
 
   String toJson() => jsonEncode(toMap());
   Map<String, dynamic> toMap();
+  bool hasDataForInsert();
+  bool hasDataForUpdate();
 }

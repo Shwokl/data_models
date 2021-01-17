@@ -3,9 +3,9 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
-import 'category.dart';
-import 'jsonable.dart';
-import '../../../helpers/query_helper/components/exercises/table.dart';
+import '../jsonable.dart';
+import 'table.dart';
+import '../categories/category.dart';
 
 /// Encapsulates all the data associated to a role, as described in the database
 ///
@@ -29,34 +29,32 @@ class Exercise extends Jsonable {
   Exercise({
     @required this.id,
     @required this.name,
-    @required this.description,
-    @required this.notes,
-    @required this.icon,
+    this.description = '',
+    this.notes = '',
+    this.icon = Table.defaultIcon,
     @required this.category,
   });
 
   Exercise.fromJson(final String json) : this.fromMap(jsonDecode(json));
   Exercise.fromMap(final Map<String, dynamic> map) {
-    if (map.containsKey(Table.id)) {
-      id = int.parse(map[Table.id]);
-    } else {
-      id = 0;
-    }
+    id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     name = map[Table.name];
-    description = map[Table.description];
-    notes = map[Table.notes];
-    icon = map[Table.icon];
+    description = Jsonable.tryExtract(map, Table.description, '');
+    notes = Jsonable.tryExtract(map, Table.notes, '');
+    icon = Jsonable.tryExtract(map, Table.icon, Table.defaultIcon);
     category = Category.fromMap(map);
   }
 
-  bool hasDataForUpdate() => hasDataForInsert() && id != null && id != 0;
+  @override
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  @override
   bool hasDataForInsert() {
     return this != null &&
         name != null &&
         name.isNotEmpty &&
         category != null &&
         category.id != null &&
-        category.id != 0;
+        category.id > 0;
   }
 
   @override
