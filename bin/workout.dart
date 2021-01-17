@@ -41,6 +41,15 @@ class Workout extends Jsonable {
     plan = WorkoutPlan.fromMap(map);
   }
 
+  bool hasDataForUpdate() => id != null && id != 0 && hasDataForInsert();
+  bool hasDataForInsert() {
+    return name != null &&
+        name.isNotEmpty &&
+        plan != null &&
+        plan.id != null &&
+        plan.id != 0;
+  }
+
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> workout = {

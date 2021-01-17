@@ -49,6 +49,16 @@ class Exercise extends Jsonable {
     category = Category.fromMap(map);
   }
 
+  bool hasDataForUpdate() => hasDataForInsert() && id != null && id != 0;
+  bool hasDataForInsert() {
+    return this != null &&
+        name != null &&
+        name.isNotEmpty &&
+        category != null &&
+        category.id != null &&
+        category.id != 0;
+  }
+
   @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> exercise = {
