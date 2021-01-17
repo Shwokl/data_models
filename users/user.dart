@@ -52,6 +52,9 @@ class User extends Jsonable {
     spice = map[Table.spice];
     email = Jsonable.tryExtract(map, Table.email, '');
     role = Role.fromMap(map);
+    if (role.id == 0) {
+      role.id = int.parse(Table.defaultRole);
+    }
     avatar = Jsonable.tryExtract(map, Table.avatar, Table.defaultAvatar);
     isActive = int.parse(Jsonable.tryExtract(map, Table.isActive, '1'));
   }

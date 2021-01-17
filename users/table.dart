@@ -15,6 +15,7 @@ abstract class Table {
 
   // TODO FIXME
   static const String defaultAvatar = '/path/to/default/avatar.png';
+  static const String defaultRole = '2';
 
   /// Specifies all the fields needed when we insert information into the database
   /// Usually, this specifies all the fields the table, except the `id`, as that
