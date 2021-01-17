@@ -4,15 +4,15 @@ import '../uwp_map/table.dart' as uwp;
 class Queries {
   final String insert = '''
     INSERT INTO ${wp.Table.tableName} (${wp.Table.insertTarget})
-    VALUES (?. ?. ?. ?. ?);
+    VALUES (?, ?, ?, ?, ?);
   ''';
 
   final String update = '''
-    UPDATE TABLE ${wp.Table.tableName} 
+    UPDATE ${wp.Table.tableName} 
     SET ${wp.Table.name} = ?,
         ${wp.Table.description} = ?,
         ${wp.Table.image} = ?,
-        ${wp.Table.isPublic} = ?,
+        ${wp.Table.isPublic} = ?
     WHERE ${wp.Table.id}  = ?;
   ''';
 
