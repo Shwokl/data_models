@@ -7,9 +7,9 @@ class Queries {
   /// Creates a new entry in the table, with the given values, IN THIS PARTICULAR
   /// ORDER: name, username, password, spice, email, role_id, avatar, is_active
   final String insert = '''
-      INSERT INTO ${u.Table.tableName} (${u.Table.insertTarget})
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''';
+    INSERT INTO ${u.Table.tableName} (${u.Table.insertTarget})
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  ''';
 
   /// Updates the entry, with the fields IN THIS PARTICULAR ORDER:
   /// name, username, password, spice, email, roleId, avatar, isActive, id
@@ -46,7 +46,8 @@ class Queries {
   final String checkUsernameTaken = '''
     SELECT COUNT(${u.Table.username}) AS "count"
     FROM ${u.Table.tableName}
-    WHERE ${u.Table.username} = ?;
+    WHERE ${u.Table.username} = ?
+    AND ${u.Table.id} != ?;
   ''';
 
   final String getPasswordForUser = '''
