@@ -25,7 +25,7 @@ abstract class Table {
   /// Specifies the specific fields we want out of the `SELECT`, in order to avoid
   /// the big bad `SELECT *`
   static const String selectTarget =
-      '$id, $name, $username, $password, $spice, $email, $role, $avatar, $isActive, $name';
+      'U.$id, U.$name, U.$username, U.$password, U.$spice, U.$email, U.$role, U.$avatar, U.$isActive, R.${r.Table.name}';
 
   /// `JOIN`s together the `users` and `roles` table, so that we can
   /// extract the "full" information about an exercise (the role name too)

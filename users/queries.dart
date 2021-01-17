@@ -12,23 +12,33 @@ class Queries {
   ''';
 
   /// Updates the entry, with the fields IN THIS PARTICULAR ORDER:
-  /// name, username, password, spice, email, roleId, avatar, isActive, id
+  /// name, username, email, roleId, avatar, id
   final String update = '''
     UPDATE ${u.Table.tableName}
     SET ${u.Table.name} = ?,
         ${u.Table.username} = ?,
-        ${u.Table.password} = ?,
-        ${u.Table.spice} = ?,
         ${u.Table.email} = ?,
         ${u.Table.role} = ?,
         ${u.Table.avatar} = ?,
-        ${u.Table.isActive} = ?,
+    WHERE U.${u.Table.id} = ?;
+  ''';
+
+  final String changePassword = '''
+    UPDATE ${u.Table.tableName}
+    SET ${u.Table.password} = ?,
+        ${u.Table.spice} = ?
+    WHERE U.${u.Table.id} = ?;
+  ''';
+
+  final String deactivateUser = '''
+    UPDATE ${u.Table.tableName}
+    SET ${u.Table.isActive} = 0
     WHERE U.${u.Table.id} = ?;
   ''';
 
   final String delete = '''
     DELETE FROM ${u.Table.tableName}
-    WHERE U.${u.Table.id} = ?
+    WHERE ${u.Table.id} = ?
     LIMIT 1;
   ''';
 
