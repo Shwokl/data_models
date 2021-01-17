@@ -37,6 +37,7 @@ class Queries {
   final String getAllForDateBetween = '''
     SELECT ${wl.Table.selectTarget}
     FROM ${wl.Table.extendedTable}
-    WHERE WL.${wl.Table.date} BETWEEN ? AND ?;
+    WHERE WL.${wl.Table.user} = ?
+    AND WL.${wl.Table.date} BETWEEN ? AND ?;
   ''';
 }
