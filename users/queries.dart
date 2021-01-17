@@ -36,6 +36,12 @@ class Queries {
     WHERE U.${u.Table.id} = ?;
   ''';
 
+  final String reactivateUser = '''
+    UPDATE ${u.Table.tableName}
+    SET ${u.Table.isActive} = 1
+    WHERE U.${u.Table.id} = ?;
+  ''';
+
   final String delete = '''
     DELETE FROM ${u.Table.tableName}
     WHERE ${u.Table.id} = ?
