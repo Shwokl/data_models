@@ -8,11 +8,11 @@ class Queries {
   ''';
 
   final String update = '''
-    UPDATE TABLE ${wl.Table.tableName}
+    UPDATE ${wl.Table.tableName}
     SET ${wl.Table.name} = ?,
         ${wl.Table.date} = ?,
         ${wl.Table.duration} = ?,
-        ${wl.Table.notes} = ?,
+        ${wl.Table.notes} = ?
     WHERE ${wl.Table.id} = ?;
   ''';
 
