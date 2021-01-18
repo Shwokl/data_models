@@ -1,9 +1,6 @@
 import 'table.dart' as u;
 
 class Queries {
-  final String defaultRole = '2';
-  final String defaultAvatar = '/path/to/default/avatar.png'; // TODO FIXME
-
   /// Creates a new entry in the table, with the given values, IN THIS PARTICULAR
   /// ORDER: name, username, password, spice, email, role_id, avatar, is_active
   final String insert = '''
