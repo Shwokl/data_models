@@ -23,7 +23,7 @@ class WorkoutLog extends Jsonable with Insertable {
   int id;
   User user;
   String name;
-  String date;
+  DateTime date;
   int duration;
   String notes;
 
@@ -41,7 +41,10 @@ class WorkoutLog extends Jsonable with Insertable {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     duration = int.parse(Jsonable.tryExtract(map, Table.duration, '0'));
     name = map[Table.name];
-    date = map[Table.date];
+    date = DateTime.tryParse(
+      Jsonable.tryExtract(map, Table.date, DateTime.now().toIso8601String()),
+    );
+
     notes = Jsonable.tryExtract(map, Table.notes, '');
     user = User.fromMap(map);
   }
@@ -56,8 +59,7 @@ class WorkoutLog extends Jsonable with Insertable {
         user != null &&
         user.id != null &&
         user.id > 0 &&
-        date != null &&
-        date.isNotEmpty;
+        date != null;
   }
 
   @override
@@ -66,7 +68,7 @@ class WorkoutLog extends Jsonable with Insertable {
       Table.id: id,
       Table.duration: duration,
       Table.name: name,
-      Table.date: date,
+      Table.date: date.millisecond,
       Table.notes: notes,
     };
     log.addAll(user.toMap());
@@ -74,7 +76,9 @@ class WorkoutLog extends Jsonable with Insertable {
   }
 
   @override
-  List<dynamic> toInsertArray() => [user.id, name, date, duration, notes];
+  List<dynamic> toInsertArray() =>
+      [user.id, name, date.toIso8601String(), duration, notes];
   @override
-  List<dynamic> toUpdateArray() => [name, date, duration, notes, id];
+  List<dynamic> toUpdateArray() =>
+      [name, date.toIso8601String(), duration, notes, id];
 }
