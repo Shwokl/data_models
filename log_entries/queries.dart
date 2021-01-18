@@ -9,7 +9,7 @@ class Queries {
   final String update = '''
     UPDATE ${le.Table.tableName} 
     SET ${le.Table.data1} = ?,
-        ${le.Table.data2}, = ?
+        ${le.Table.data2} = ?
     WHERE ${le.Table.id} = ?;
   ''';
 

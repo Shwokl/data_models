@@ -27,6 +27,6 @@ abstract class Table {
   static const String extendedTable = '''
     $tableName LE
     LEFT JOIN ${c.Table.tableName} C ON
-      (C.${c.Table.id} = E.$category)
+      (C.${c.Table.id} = LE.$category)
   ''';
 }
