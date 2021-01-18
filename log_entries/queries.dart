@@ -13,10 +13,21 @@ class Queries {
     WHERE ${le.Table.id} = ?;
   ''';
 
-  final String delete = '''
+  final String deleteById = '''
     DELETE FROM ${le.Table.tableName}
     WHERE ${le.Table.id} = ?
     LIMIT 1;
+  ''';
+
+  final String deleteAllForWorkoutLog = '''
+    DELETE FROM ${le.Table.tableName}
+    WHERE ${le.Table.workoutLog} = ?;
+  ''';
+
+  final String deleteAllForExerciseInWorkoutLog = '''
+    DELETE FROM ${le.Table.tableName}
+    WHERE ${le.Table.exerciseName} = ?
+    AND ${le.Table.workoutLog} = ?;
   ''';
 
   final String getById = '''
@@ -25,9 +36,15 @@ class Queries {
     WHERE LE.${le.Table.id} = ?;
   ''';
 
-  final String getAllForWorkoutLog = '''
+  final String getAllByWorkoutLog = '''
     SELECT ${le.Table.selectTarget}
     FROM ${le.Table.extendedTable}
     WHERE LE.${le.Table.workoutLog} = ?;
+  ''';
+
+  final String getAllByExerciseName = '''
+    SELECT ${le.Table.selectTarget}
+    FROM ${le.Table.extendedTable}
+    WHERE LE.${le.Table.exerciseName} = ?;
   ''';
 }
