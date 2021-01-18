@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import '../insertable.dart';
 import '../jsonable.dart';
 import 'table.dart';
 import '../users/user.dart';
@@ -18,7 +19,7 @@ import '../users/user.dart';
 /// `workout_log_duration` INTEGER NOT NULL,
 /// `workout_log_notes` VARCHAR(512) DEFAULT NULL
 /// ```
-class WorkoutLog extends Jsonable {
+class WorkoutLog extends Jsonable with Insertable {
   int id;
   User user;
   String name;
@@ -71,4 +72,9 @@ class WorkoutLog extends Jsonable {
     log.addAll(user.toMap());
     return log;
   }
+
+  @override
+  List<dynamic> toInsertArray() => [user.id, name, date, duration, notes];
+  @override
+  List<dynamic> toUpdateArray() => [name, date, duration, notes, id];
 }

@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import '../insertable.dart';
 import '../jsonable.dart';
 import 'table.dart';
 import '../categories/category.dart';
@@ -20,7 +21,7 @@ import '../workout_logs/workout_log.dart';
 /// `log_entry_data_1` INTEGER NOT NULL,
 /// `log_entry_data_2` INTEGER DEFAULT 0
 /// ```
-class LogEntry extends Jsonable {
+class LogEntry extends Jsonable with Insertable {
   int id;
   WorkoutLog log;
   String exerciseName;
@@ -84,8 +85,10 @@ class LogEntry extends Jsonable {
     return entry;
   }
 
+  @override
   List<dynamic> toInsertArray() =>
       [log.id, exerciseName, category.id, setNumber, data1, data2];
 
+  @override
   List<dynamic> toUpdateArray() => [data1, data2, id];
 }

@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import '../insertable.dart';
 import '../jsonable.dart';
 import 'table.dart';
 import '../roles/role.dart';
@@ -20,7 +21,7 @@ import '../roles/role.dart';
 /// `user_avatar` VARCHAR(256) DEFAULT NULL,
 /// `user_is_active` BOOLEAN DEFAULT TRUE,
 /// ```
-class User extends Jsonable {
+class User extends Jsonable with Insertable {
   int id;
   String name;
   String username;
@@ -92,4 +93,14 @@ class User extends Jsonable {
     user.addAll(role.toMap());
     return user;
   }
+
+  @override
+  List toInsertArray() =>
+      [name, username, password, spice, email, role.id, avatar, isActive];
+
+  @override
+  List toUpdateArray() =>
+      [name, username, email, role.id, avatar, isActive, id];
+
+  List toPasswordChangeArray() => [password, spice, id];
 }

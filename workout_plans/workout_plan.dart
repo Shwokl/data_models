@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 //Local import
+import '../insertable.dart';
 import '../jsonable.dart';
 import 'table.dart';
 import '../users/user.dart';
@@ -18,7 +19,7 @@ import '../users/user.dart';
 /// `workout_plan_creator_id` INTEGER NOT NULL,
 /// `workout_plan_is_public` BOOLEAN NOT NULL DEFAULT FALSE
 /// ```
-class WorkoutPlan extends Jsonable {
+class WorkoutPlan extends Jsonable with Insertable {
   int id;
   String name;
   String description;
@@ -73,4 +74,9 @@ class WorkoutPlan extends Jsonable {
     workout_plan.addAll(creator.toMap());
     return workout_plan;
   }
+
+  @override
+  List<dynamic> toInsertArray() => [name, description, image, isPublic];
+  @override
+  List<dynamic> toUpdateArray() => [name, description, image, isPublic, id];
 }
