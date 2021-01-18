@@ -46,9 +46,9 @@ class LogEntry extends Jsonable with Insertable {
     log = WorkoutLog.fromMap(map);
     exerciseName = map[Table.exerciseName];
     category = Category.fromMap(map);
-    setNumber = int.parse(map[Table.setNr]);
-    data1 = int.parse(map[Table.data1]);
-    data2 = int.parse(map[Table.data2]);
+    setNumber = int.tryParse(map[Table.setNr].toString());
+    data1 = int.tryParse(map[Table.data1].toString());
+    data2 = int.tryParse(map[Table.data2].toString());
   }
 
   @override
