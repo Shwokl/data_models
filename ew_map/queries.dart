@@ -41,6 +41,6 @@ class Queries {
     SELECT ${ew.Table.exercise}
     FROM ${ew.Table.tableName}
     WHERE E.${ew.Table.exercise} = ?
-    AND E.${ew.Table.workout} != ?;
+    AND E.${ew.Table.workout} = ?;
   ''';
 }

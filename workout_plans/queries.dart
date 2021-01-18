@@ -28,17 +28,6 @@ class Queries {
     WHERE WP.${wp.Table.id} = ?;
   ''';
 
-  final String getPrimaryForUser = '''
-    SELECT ${wp.Table.selectTarget}
-    FROM ${wp.Table.extendedTable}
-    WHERE WP.${wp.Table.id} IN (
-      SELECT ${uwp.Table.workoutPlan}
-      FROM ${uwp.Table.tableName}
-      WHERE ${uwp.Table.isPrimary} = 1
-      AND ${uwp.Table.user} = ?
-    );
-  ''';
-
   final String getAllPublic = '''
     SELECT ${wp.Table.selectTarget}
     FROM ${wp.Table.extendedTable}

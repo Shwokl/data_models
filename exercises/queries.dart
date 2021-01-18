@@ -1,7 +1,6 @@
 // Local imports
 import 'table.dart' as e;
 import '../categories/table.dart' as c;
-import '../emg_map/table.dart' as emg;
 
 class Queries {
   final String insert = '''
@@ -47,15 +46,5 @@ class Queries {
     SELECT ${e.Table.selectTarget}
     FROM ${e.Table.extendedTable}
     WHERE C.${c.Table.id} = ?;
-  ''';
-
-  final String getAllByMuscleGroup = '''
-    SELECT ${e.Table.selectTarget}
-    FROM ${e.Table.extendedTable}
-    WHERE E.${e.Table.id} IN (
-      SELECT ${emg.Table.exercise}
-      FROM ${emg.Table.tableName}
-      WHERE ${emg.Table.muscleGroup} = ?
-    );
   ''';
 }
