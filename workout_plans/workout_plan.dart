@@ -76,7 +76,8 @@ class WorkoutPlan extends Jsonable with Insertable {
   }
 
   @override
-  List<dynamic> toInsertArray() => [name, description, image, isPublic];
+  List<dynamic> toInsertArray() =>
+      [name, description, image, creator.id, isPublic];
   @override
   List<dynamic> toUpdateArray() => [name, description, image, isPublic, id];
 }
