@@ -15,7 +15,7 @@ abstract class Table {
   /// Usually, this specifies all the fields the table, except the `id`, as that
   /// auto-increments
   static const String insertTarget =
-      'LE.$workoutLog, LE.$exerciseName, LE.$category, LE.$setNr, LE.$data1, LE.$data2';
+      '$workoutLog, $exerciseName, $category, $setNr, $data1, $data2';
 
   /// Specifies the specific fields we want out of the `SELECT`, in order to avoid
   /// the big bad `SELECT *`
