@@ -61,7 +61,19 @@ class User extends Jsonable with Insertable {
   }
 
   @override
-  bool hasDataForUpdate() => hasDataForInsert() && id != null && id > 0;
+  bool hasDataForUpdate() {
+    return this != null &&
+        name != null &&
+        username != null &&
+        username.isNotEmpty &&
+        email != null &&
+        role != null &&
+        role.id != null &&
+        role.id > 0 &&
+        id != null &&
+        id > 0;
+  }
+
   @override
   bool hasDataForInsert() {
     return this != null &&
