@@ -83,4 +83,9 @@ class LogEntry extends Jsonable {
     entry..addAll(log.toMap())..addAll(category.toMap());
     return entry;
   }
+
+  List<dynamic> toInsertArray() =>
+      [log.id, exerciseName, category.id, setNumber, data1, data2];
+
+  List<dynamic> toUpdateArray() => [data1, data2, id];
 }
