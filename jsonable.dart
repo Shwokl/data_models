@@ -36,7 +36,7 @@ abstract class Jsonable {
       if (map[key] == null) {
         return defaultValue;
       }
-      return map[key];
+      return map[key].toString();
     }
     return defaultValue;
   }
