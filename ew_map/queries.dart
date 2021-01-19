@@ -40,7 +40,7 @@ class Queries {
   final String checkIfDuplicate = '''
     SELECT ${ew.Table.exercise}
     FROM ${ew.Table.tableName}
-    WHERE E.${ew.Table.exercise} = ?
-    AND E.${ew.Table.workout} = ?;
+    WHERE ${ew.Table.exercise} = ?
+    AND ${ew.Table.workout} = ?;
   ''';
 }

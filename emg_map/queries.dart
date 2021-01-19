@@ -24,7 +24,7 @@ class Queries {
     SELECT ${mg.Table.selectTarget}
     FROM ${mg.Table.tableName}
     WHERE ${mg.Table.id} IN (
-      SELECT ${emg.Table.exercise}
+      SELECT ${emg.Table.muscleGroup}
       FROM ${emg.Table.tableName}
       WHERE ${emg.Table.exercise} = ?
     );
@@ -41,7 +41,7 @@ class Queries {
   final String checkIfDuplicate = '''
     SELECT ${emg.Table.exercise}
     FROM ${emg.Table.tableName}
-    WHERE E.${emg.Table.exercise} = ?
-    AND E.${emg.Table.muscleGroup} = ?;
+    WHERE ${emg.Table.exercise} = ?
+    AND ${emg.Table.muscleGroup} = ?;
   ''';
 }

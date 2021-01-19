@@ -22,7 +22,11 @@ class Queries {
   final String getAllWorkoutPlansForUser = '''
     SELECT ${wp.Table.selectTarget}
     FROM ${wp.Table.extendedTable}
-    WHERE UWP.${uwp.Table.user} = ?;
+    WHERE WP.${wp.Table.id} IN (
+      SELECT ${uwp.Table.workoutPlan}
+      FROM ${uwp.Table.tableName}
+      WHERE ${uwp.Table.user} = ?
+    );
   ''';
 
   final String getAllUsersForWorkoutPlan = '''
