@@ -23,10 +23,11 @@ class MuscleGroup extends Jsonable {
     @required this.name,
   });
 
-  MuscleGroup.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  MuscleGroup.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   MuscleGroup.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
   }
 
   @override

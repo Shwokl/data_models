@@ -22,10 +22,11 @@ class Role extends Jsonable {
     @required this.name,
   });
 
-  Role.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Role.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   Role.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
   }
 
   @override

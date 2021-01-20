@@ -1,5 +1,5 @@
-import 'table.dart' as wp;
 import '../uwp_map/table.dart' as uwp;
+import 'table.dart' as wp;
 
 class Queries {
   final String insert = '''

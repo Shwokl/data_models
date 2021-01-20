@@ -3,11 +3,11 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import '../categories/category.dart';
 import '../insertable.dart';
 import '../jsonable.dart';
-import 'table.dart';
-import '../categories/category.dart';
 import '../workout_logs/workout_log.dart';
+import 'table.dart';
 
 /// Encapsulates all the data associated to a workout log entry, as described in
 /// the database
@@ -40,11 +40,12 @@ class LogEntry extends Jsonable with Insertable {
     this.data2 = 0,
   });
 
-  LogEntry.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  LogEntry.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   LogEntry.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     log = WorkoutLog.fromMap(map);
-    exerciseName = map[Table.exerciseName];
+    exerciseName = map[Table.exerciseName].toString();
     category = Category.fromMap(map);
     setNumber = int.tryParse(map[Table.setNr].toString());
     data1 = int.tryParse(map[Table.data1].toString());
@@ -74,7 +75,7 @@ class LogEntry extends Jsonable with Insertable {
 
   @override
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> entry = {
+    final Map<String, dynamic> entry = {
       Table.id: id,
       Table.exerciseName: exerciseName,
       Table.setNr: setNumber,

@@ -12,7 +12,8 @@ class UwpMap extends Jsonable with Insertable {
   int isPrimary;
 
   UwpMap({this.userId, this.workoutPlanId, this.isPrimary});
-  UwpMap.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  UwpMap.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   UwpMap.fromMap(final Map<String, dynamic> map) {
     userId = int.parse(Jsonable.tryExtract(map, Table.user, '0'));
     workoutPlanId = int.parse(Jsonable.tryExtract(map, Table.workoutPlan, '0'));

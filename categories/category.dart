@@ -23,10 +23,11 @@ class Category extends Jsonable {
     @required this.name,
   });
 
-  Category.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Category.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   Category.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
   }
 
   @override

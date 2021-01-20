@@ -1,5 +1,5 @@
-import 'table.dart' as ew;
 import '../exercises/table.dart' as e;
+import 'table.dart' as ew;
 
 class Queries {
   /// Adds an entry in `ew_map` with the given exercise and workout

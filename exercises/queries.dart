@@ -1,6 +1,6 @@
 // Local imports
-import 'table.dart' as e;
 import '../categories/table.dart' as c;
+import 'table.dart' as e;
 
 class Queries {
   final String insert = '''

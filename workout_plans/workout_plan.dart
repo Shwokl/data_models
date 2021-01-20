@@ -5,8 +5,8 @@ import 'package:meta/meta.dart' show required;
 //Local import
 import '../insertable.dart';
 import '../jsonable.dart';
-import 'table.dart';
 import '../users/user.dart';
+import 'table.dart';
 
 /// Encapsulates all the data associated to a workout plan, as described in the
 /// database
@@ -36,10 +36,11 @@ class WorkoutPlan extends Jsonable with Insertable {
     this.isPublic = 0,
   });
 
-  WorkoutPlan.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  WorkoutPlan.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   WorkoutPlan.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
     description = Jsonable.tryExtract(map, Table.description, '');
     image = Jsonable.tryExtract(map, Table.image, Table.defaultImage);
     isPublic = int.parse(Jsonable.tryExtract(map, Table.isPublic, '0'));
@@ -63,7 +64,7 @@ class WorkoutPlan extends Jsonable with Insertable {
 
   @override
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> workout_plan = {
+    final Map<String, dynamic> workoutPlan = {
       Table.id: id,
       Table.name: name,
       Table.description: description,
@@ -71,8 +72,8 @@ class WorkoutPlan extends Jsonable with Insertable {
       Table.isPublic: isPublic,
       Table.creator: creator.id,
     };
-    workout_plan.addAll(creator.toMap());
-    return workout_plan;
+    workoutPlan.addAll(creator.toMap());
+    return workoutPlan;
   }
 
   @override

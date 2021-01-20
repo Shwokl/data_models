@@ -11,9 +11,9 @@ import 'muscle_groups/muscle_group.dart';
 import 'roles/role.dart';
 import 'users/user.dart';
 import 'uwp_map/uwp_map.dart';
-import 'workouts/workout.dart';
 import 'workout_logs/workout_log.dart';
 import 'workout_plans/workout_plan.dart';
+import 'workouts/workout.dart';
 
 abstract class Jsonable {
   /// Add factory functions for every Type and every constructor you want to make available to `make`
@@ -33,7 +33,7 @@ abstract class Jsonable {
   };
 
   static T fromJson<T extends Jsonable>(final String json) {
-    return factories[T](json);
+    return factories[T](json) as T;
   }
 
   static String tryExtract(final Map<String, dynamic> map, final String key,

@@ -11,7 +11,8 @@ class EmgMap extends Jsonable with Insertable {
   int muscleGroupId;
 
   EmgMap({this.exerciseId, this.muscleGroupId});
-  EmgMap.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  EmgMap.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   EmgMap.fromMap(final Map<String, dynamic> map) {
     exerciseId = int.parse(Jsonable.tryExtract(map, Table.exercise, '0'));
     muscleGroupId = int.parse(Jsonable.tryExtract(map, Table.muscleGroup, '0'));

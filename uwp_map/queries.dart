@@ -1,6 +1,6 @@
-import 'table.dart' as uwp;
-import '../workout_plans/table.dart' as wp;
 import '../users/table.dart' as u;
+import '../workout_plans/table.dart' as wp;
+import 'table.dart' as uwp;
 
 class Queries {
   final String insert = '''

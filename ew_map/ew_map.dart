@@ -12,7 +12,8 @@ class EwMap extends Jsonable with Insertable {
   int sets;
 
   EwMap({this.exerciseId, this.workoutId, this.sets});
-  EwMap.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  EwMap.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   EwMap.fromMap(final Map<String, dynamic> map) {
     exerciseId = int.parse(Jsonable.tryExtract(map, Table.exercise, '0'));
     workoutId = int.parse(Jsonable.tryExtract(map, Table.workout, '0'));

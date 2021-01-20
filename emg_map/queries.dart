@@ -1,6 +1,6 @@
-import 'table.dart' as emg;
 import '../exercises/table.dart' as e;
 import '../muscle_groups/table.dart' as mg;
+import 'table.dart' as emg;
 
 class Queries {
   /// Creates a new entry in the table with the given exercise and muscle group

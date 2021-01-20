@@ -1,5 +1,5 @@
-import 'table.dart' as wl;
 import '../users/table.dart' as u;
+import 'table.dart' as wl;
 
 class Queries {
   final String insert = '''

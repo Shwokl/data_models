@@ -5,8 +5,8 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import '../insertable.dart';
 import '../jsonable.dart';
-import 'table.dart';
 import '../roles/role.dart';
+import 'table.dart';
 
 /// Encapsulates all the data associated to a user, as described in the database
 ///
@@ -44,13 +44,14 @@ class User extends Jsonable with Insertable {
     this.isActive = 1,
   });
 
-  User.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  User.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   User.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
     name = Jsonable.tryExtract(map, Table.name, '');
-    username = map[Table.username];
-    password = map[Table.password];
-    spice = map[Table.spice];
+    username = map[Table.username].toString();
+    password = map[Table.password].toString();
+    spice = map[Table.spice].toString();
     email = Jsonable.tryExtract(map, Table.email, '');
     role = Role.fromMap(map);
     if (role.id == 0) {
@@ -92,7 +93,7 @@ class User extends Jsonable with Insertable {
 
   @override
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> user = {
+    final Map<String, dynamic> user = {
       Table.id: id,
       Table.name: name,
       Table.username: username,

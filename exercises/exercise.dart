@@ -3,10 +3,10 @@ import 'dart:convert' show jsonDecode;
 import 'package:meta/meta.dart' show required;
 
 // Local imports
+import '../categories/category.dart';
 import '../insertable.dart';
 import '../jsonable.dart';
 import 'table.dart';
-import '../categories/category.dart';
 
 /// Encapsulates all the data associated to a role, as described in the database
 ///
@@ -36,10 +36,11 @@ class Exercise extends Jsonable with Insertable {
     @required this.category,
   });
 
-  Exercise.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Exercise.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   Exercise.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
     description = Jsonable.tryExtract(map, Table.description, '');
     notes = Jsonable.tryExtract(map, Table.notes, '');
     icon = Jsonable.tryExtract(map, Table.icon, Table.defaultIcon);
@@ -60,7 +61,7 @@ class Exercise extends Jsonable with Insertable {
 
   @override
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> exercise = {
+    final Map<String, dynamic> exercise = {
       Table.id: id,
       Table.name: name,
       Table.description: description,

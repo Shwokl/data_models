@@ -1,6 +1,6 @@
-import '../workout_plans/table.dart' as wp;
-import '../users/table.dart' as u;
 import '../roles/table.dart' as r;
+import '../users/table.dart' as u;
+import '../workout_plans/table.dart' as wp;
 
 abstract class Table {
   static const String tableName = 'workouts';

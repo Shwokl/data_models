@@ -5,8 +5,8 @@ import 'package:meta/meta.dart' show required;
 // Local imports
 import '../insertable.dart';
 import '../jsonable.dart';
-import 'table.dart';
 import '../workout_plans/workout_plan.dart';
+import 'table.dart';
 
 /// Encapsulates all the data associated to a workout, as described in the
 /// database
@@ -30,10 +30,11 @@ class Workout extends Jsonable with Insertable {
     @required this.plan,
   });
 
-  Workout.fromJson(final String json) : this.fromMap(jsonDecode(json));
+  Workout.fromJson(final String json)
+      : this.fromMap(jsonDecode(json) as Map<String, dynamic>);
   Workout.fromMap(final Map<String, dynamic> map) {
     id = int.parse(Jsonable.tryExtract(map, Table.id, '0'));
-    name = map[Table.name];
+    name = map[Table.name].toString();
     image = Jsonable.tryExtract(map, Table.image, Table.defaultImage);
     plan = WorkoutPlan.fromMap(map);
   }
@@ -51,7 +52,7 @@ class Workout extends Jsonable with Insertable {
 
   @override
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> workout = {
+    final Map<String, dynamic> workout = {
       Table.id: id,
       Table.name: name,
       Table.image: image,

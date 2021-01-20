@@ -33,6 +33,6 @@ abstract class Table {
   static const String extendedTable = '''
     $tableName U
     LEFT JOIN ${r.Table.tableName} R ON
-      (R.${r.Table.id} = U.${role})
+      (R.${r.Table.id} = U.$role)
   ''';
 }

@@ -1,5 +1,5 @@
-import '../users/table.dart' as u;
 import '../roles/table.dart' as r;
+import '../users/table.dart' as u;
 
 abstract class Table {
   static const String tableName = 'workout_logs';
@@ -19,7 +19,7 @@ abstract class Table {
   /// Specifies the specific fields we want out of the `SELECT`, in order to avoid
   /// the big bad `SELECT *`
   static const String selectTarget = '''
-    WL.${id}, WL.${user}, WL.${name}, WL.${date}, WL.${duration}, WL.${notes},
+    WL.$id, WL.$user, WL.$name, WL.$date, WL.$duration, WL.$notes,
     U.${u.Table.name}, U.${u.Table.username}, U.${u.Table.password}, 
     U.${u.Table.spice}, U.${u.Table.email}, U.${u.Table.role}, U.${u.Table.avatar},
     U.${u.Table.isActive}, R.${r.Table.name}
@@ -28,9 +28,9 @@ abstract class Table {
   /// `JOIN`s together the `workout_logs`, `users` and `roles` table, so that we
   /// can extract the "full" information about a workout log (the creator name too)
   static const String extendedTable = '''
-    ${tableName} WL
+    $tableName WL
     LEFT JOIN ${u.Table.tableName} U ON
-      (U.${u.Table.id} = WL.${user})
+      (U.${u.Table.id} = WL.$user)
     LEFT JOIN ${r.Table.tableName} R ON
       (R.${r.Table.id} = U.${u.Table.role})
   ''';

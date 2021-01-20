@@ -1,5 +1,5 @@
-import '../users/table.dart' as u;
 import '../roles/table.dart' as r;
+import '../users/table.dart' as u;
 
 abstract class Table {
   static const String tableName = 'workout_plans';
@@ -33,7 +33,7 @@ abstract class Table {
   /// `JOIN`s together the `workout_plans`, `users` and `roles` table, so that we
   /// can extract the "full" information about a workout log (the creator name too)
   static const String extendedTable = '''
-    ${tableName} WP
+    $tableName WP
     LEFT JOIN ${u.Table.tableName} U ON
       (U.${u.Table.id} = WP.$creator)
     LEFT JOIN ${r.Table.tableName} R ON

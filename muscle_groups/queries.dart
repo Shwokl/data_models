@@ -1,6 +1,6 @@
-import 'table.dart' as mg;
-import '../ew_map/table.dart' as ew;
 import '../emg_map/table.dart' as emg;
+import '../ew_map/table.dart' as ew;
+import 'table.dart' as mg;
 
 class Queries {
   /// Performs a `SELECT` operation, looking for the given id
